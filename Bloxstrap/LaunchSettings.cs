@@ -28,7 +28,7 @@ namespace Bloxstrap
         
         public LaunchFlag PlayerFlag    { get; } = new("player");
         
-        public LaunchFlag StudioFlag    { get; } = new("studio");
+        public LaunchFlag StudioFlag    { get; } = new("studio,ide");
 
 #if DEBUG
         public bool BypassUpdateCheck => true;
@@ -39,6 +39,7 @@ namespace Bloxstrap
         public LaunchMode RobloxLaunchMode { get; set; } = LaunchMode.None;
 
         public string RobloxLaunchArgs { get; private set; } = "";
+        //public string StudioLaunchArgs { get; private set; } = "";
 
         /// <summary>
         /// Original launch arguments
@@ -110,7 +111,8 @@ namespace Bloxstrap
         {
             RobloxLaunchMode = LaunchMode.Studio;
 
-            // TODO: do this later
+            if (!String.IsNullOrEmpty(data))
+                RobloxLaunchArgs = data;
         }
     }
 }

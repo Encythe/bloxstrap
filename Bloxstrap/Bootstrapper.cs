@@ -312,8 +312,9 @@ namespace Bloxstrap
                 }
 
                 App.Logger.WriteLine(LOG_IDENT, $"Started Roblox (PID {gameClientPid}), waiting for start event");
+                App.Logger.WriteLine(LOG_IDENT, $"The startEvent is located at {AppData.StartEvent}");
 
-                startEventSignalled = startEvent.WaitOne(TimeSpan.FromSeconds(30));
+                startEventSignalled = IsStudioLaunch ? true : startEvent.WaitOne(TimeSpan.FromSeconds(30)); // personally, fuck you
             }
 
             if (!startEventSignalled)
@@ -371,6 +372,7 @@ namespace Bloxstrap
                     Process.Start(Paths.Process, $"-watcher \"{args}\"");
             }
         }
+
 
         // TODO: the bootstrapper dialogs call this function directly.
         // this should probably be behind an event invocation.
